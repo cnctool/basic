@@ -46,7 +46,7 @@ public class Gui extends JFrame {
 	
 	private String calc() {
 		
-		int radius=Integer.parseInt(textField.getText());
+		float radius=Float.parseFloat(textField.getText());
 		radius=radius/2;
 		ArrayList<String> text = new ArrayList<String>();
 		
@@ -55,6 +55,18 @@ public class Gui extends JFrame {
 		text.add("G0 X-"+(radius+20)+" Y-"+(radius+20));
 		text.add("Z50");
 		text.add("Z10");
+		
+		//Hier fangen wir an zu ueberpruefen ob der Fraeser Radius kleiner ist, als die Laenge der Schraege
+		//Dadurch unterhscheidet sich das Fraesverhalten gravierend.
+		if(Integer.parseInt(textField.getText())<=Integer.parseInt(textField_2.getText())){
+			//Dieser Code wird ausgeben, wenn der Fraeser kleiner oder gleich ist als die Laenge der Schraege:
+			
+			
+			
+		}else if(Integer.parseInt(textField.getText())>Integer.parseInt(textField_2.getText())){
+			//Dieser Code wird ausgeben, wenn der Fraeser groesser ist als die Laenge der Schraege:
+		}
+		
 		text.add("G1 ");
 	
 		
@@ -105,13 +117,14 @@ public class Gui extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode()==KeyEvent.VK_ENTER){
 					editorPane.setText(calc());
+					editorPane.selectAll();
 				}
 			}
 		});
 		btnErzeugen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editorPane.setText(calc());
-				
+				editorPane.selectAll();
 			}
 		});
 		btnErzeugen.setBounds(158, 393, 89, 23);
