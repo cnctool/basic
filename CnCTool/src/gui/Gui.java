@@ -17,10 +17,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
-import javax.swing.JScrollBar;
 
 public class Gui extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -28,7 +31,7 @@ public class Gui extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 
-	
+	 // bla bla bla
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
