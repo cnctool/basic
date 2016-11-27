@@ -20,9 +20,7 @@ import javax.swing.ImageIcon;
 
 public class Gui extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
@@ -31,7 +29,7 @@ public class Gui extends JFrame {
 	private JTextField textField_3;
 	private JTextField textField_4;
 
-	 // bla bla bla afjkasldfjklasf test123
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +43,33 @@ public class Gui extends JFrame {
 		});
 	}
 
+	
+	private String calc() {
+		
+		int radius=Integer.parseInt(textField.getText());
+		radius=radius/2;
+		ArrayList<String> text = new ArrayList<String>();
+		
+		//Hier Logik
+		String ausgabe="";
+		text.add("G0 X-"+(radius+20)+" Y-"+(radius+20));
+		text.add("Z50");
+		text.add("Z10");
+		text.add("G1 ");
+	
+		
+		//Ausgabe
+		for(int i=0;i<text.size();i++){
+			ausgabe=ausgabe+text.get(i)+"\n";
+		}
+		
+		
+		
+		
+		return ausgabe;
+		
+		
+	}
 	
 	public Gui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,6 +90,93 @@ public class Gui extends JFrame {
 		JLabel lblInformationen = new JLabel("Informationen Werkzeug:");
 		lblInformationen.setBounds(10, 11, 237, 14);
 		contentPane.add(lblInformationen);
+		
+		JLabel lblWinkel = new JLabel("Winkel");
+		lblWinkel.setBounds(10, 199, 46, 14);
+		contentPane.add(lblWinkel);
+		
+		
+		
+	
+		
+		
+		JButton btnErzeugen = new JButton("Calc");
+		btnErzeugen.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					editorPane.setText(calc());
+				}
+			}
+		});
+		btnErzeugen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				editorPane.setText(calc());
+				
+			}
+		});
+		btnErzeugen.setBounds(158, 393, 89, 23);
+		contentPane.add(btnErzeugen);
+		
+		
+		JRadioButton rdbtnLinks = new JRadioButton("Links");
+		rdbtnLinks.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					rdbtnLinks.setSelected(true);
+					btnErzeugen.grabFocus();
+				}else if(e.getKeyCode()==KeyEvent.VK_DOWN){
+					btnErzeugen.grabFocus();
+				}
+			}
+		});
+		rdbtnLinks.setBounds(6, 334, 109, 23);
+		contentPane.add(rdbtnLinks);
+		
+		JRadioButton rdbtnOben = new JRadioButton("Oben");
+		rdbtnOben.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					rdbtnOben.setSelected(true);
+					rdbtnLinks.grabFocus();
+				}else if (e.getKeyCode()==KeyEvent.VK_DOWN){
+					rdbtnLinks.grabFocus();
+				}
+			}
+		});
+		rdbtnOben.setBounds(6, 308, 109, 23);
+		contentPane.add(rdbtnOben);
+		
+		JRadioButton rdbtnRechts = new JRadioButton("Rechts");
+		rdbtnRechts.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					rdbtnRechts.setSelected(true);
+					rdbtnOben.grabFocus();
+				}else  if(e.getKeyCode()==KeyEvent.VK_DOWN){
+					rdbtnOben.grabFocus();
+				}
+			}
+		});
+		rdbtnRechts.setBounds(6, 282, 109, 23);
+		contentPane.add(rdbtnRechts);
+		
+		JRadioButton rdbtnUnten = new JRadioButton("Unten");
+		rdbtnUnten.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER){
+					rdbtnUnten.setSelected(true);
+					rdbtnRechts.grabFocus();
+				}else if (e.getKeyCode()==KeyEvent.VK_DOWN){
+					rdbtnRechts.grabFocus();
+				}
+			}
+		});
+		rdbtnUnten.setBounds(6, 256, 109, 23);
+		contentPane.add(rdbtnUnten);
+		
+		JLabel lblLageDerSchraege = new JLabel("Lage der schraege:");
+		lblLageDerSchraege.setBounds(6, 235, 241, 14);
+		contentPane.add(lblLageDerSchraege);
 		
 		textField = new JTextField();
 		textField.setBounds(160, 44, 86, 20);
@@ -142,19 +254,11 @@ public class Gui extends JFrame {
 						float tiefe = Float.parseFloat(textField_3.getText());
 						float winkel =0f;
 						float tan= laenge/tiefe;
-						System.out.println(""+tan);
-						
 						tan=(float) Math.atan(tan);
-						System.out.println(""+tan);
 						tan = (float) Math.toDegrees(tan);
-						System.out.println(""+tan);
-						
-						
 						winkel = tan;
-						textField_4.setText(""+winkel);
-						
-						
-						
+						textField_4.setText(""+winkel);	
+						rdbtnUnten.grabFocus();
 					}else if (textField_2.getText().length()==0 && textField_3.getText().length() !=0){
 						textField_4.grabFocus();
 					}else if (textField_3.getText().length()==0 && textField_2.getText().length() !=0){
@@ -183,31 +287,20 @@ public class Gui extends JFrame {
 						float winkel = Float.parseFloat(textField_4.getText());
 						float tiefe =0f;
 						float tan=0f;
-						System.out.println(""+winkel);
 						tan = (float) Math.tan(Math.toRadians(winkel));
-						System.out.println(""+tan);
-						
-						
 						tan= laenge/tan;
-						
 						tiefe = tan;
 						textField_3.setText(""+tiefe);
-						
-						
-						
+						rdbtnUnten.grabFocus();
 					}else if (textField_2.getText().length()==0 && textField_3.getText().length() !=0){
 						float laenge=0f;
 						float tiefe= Float.parseFloat(textField_3.getText());
 						float winkel= Float.parseFloat(textField_4.getText());
 						float tan = 0f;
-						
 						tan = (float) Math.tan(Math.toRadians(winkel));
-						System.out.println(""+tan);
-						
 						laenge = tan*tiefe;
 						textField_2.setText(""+laenge);
-						
-						
+						rdbtnUnten.grabFocus();
 					}
 					
 					
@@ -215,69 +308,7 @@ public class Gui extends JFrame {
 			}
 		});
 		
-		JLabel lblWinkel = new JLabel("Winkel");
-		lblWinkel.setBounds(10, 199, 46, 14);
-		contentPane.add(lblWinkel);
 		
-		JRadioButton rdbtnUnten = new JRadioButton("Unten");
-		rdbtnUnten.setBounds(6, 256, 109, 23);
-		contentPane.add(rdbtnUnten);
-		
-		JLabel lblLageDerSchraege = new JLabel("Lage der schraege:");
-		lblLageDerSchraege.setBounds(6, 235, 241, 14);
-		contentPane.add(lblLageDerSchraege);
-		
-		JRadioButton rdbtnRechts = new JRadioButton("Rechts");
-		rdbtnRechts.setBounds(6, 282, 109, 23);
-		contentPane.add(rdbtnRechts);
-		
-		JRadioButton rdbtnOben = new JRadioButton("Oben");
-		rdbtnOben.setBounds(6, 308, 109, 23);
-		contentPane.add(rdbtnOben);
-		
-		JRadioButton rdbtnLinks = new JRadioButton("Links");
-		rdbtnLinks.setBounds(6, 334, 109, 23);
-		contentPane.add(rdbtnLinks);
-		
-		JButton btnErzeugen = new JButton("Erzeugen");
-		btnErzeugen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-				//System.out.println("Jude");
-				calc();
-				
-			}
-
-			
-			private String calc() {
-			
-				int radius=Integer.parseInt(textField.getText());
-				radius=radius/2;
-				ArrayList<String> text = new ArrayList<String>();
-				
-				//Hier Logik
-				String ausgabe="";
-				text.add("G0 X-"+(radius+20)+" Y-"+(radius+20));
-				text.add("Z50");
-				text.add("Z10");
-				text.add("G1 ");
-			
-				
-				//Ausgabe
-				for(int i=0;i<text.size();i++){
-					ausgabe=ausgabe+text.get(i)+"\n";
-				}
-				editorPane.setText(ausgabe);
-				
-				
-				
-				return null;
-				
-				
-			}
-		});
-		btnErzeugen.setBounds(158, 393, 89, 23);
-		contentPane.add(btnErzeugen);
 		
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
