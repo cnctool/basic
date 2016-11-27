@@ -15,7 +15,7 @@ Example for a 60mm Head:
 G0 x-50 y-50                                                                                                
 z50                                                                                             
 z10                                                                                                  
-g1 g42 y90 z-9.5 f8000                                                                                                  
+g1 g42 y90 z-9.5 f8000    <- See how we just went z-9.5  only                                                                                        
 x250                                                                                                      
 g0 z10                                                                                                                  
 g40 z50
